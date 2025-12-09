@@ -1,0 +1,74 @@
+{
+  "version": "0.0.1",
+  "profile": "development",
+  "instanceId": "apple",
+  "uniqueValue": "1",
+  "applicationName": "malachite",
+  "includeStackTrace": true,
+  "applicationDataDirectoryPath": "./application-data",
+  "applicationSpecificDataDirectoryPath": "{{applicationData}}/{{applicationName}}",
+  "instanceSpecificDataDirectoryPath": "{{applicationSpecificData}}/{{instanceId}}",
+  "apiClientSystemCredentialsFilePath": "{{applicationData}}/{{profile}}/api-client-system-credentials",
+  "secretKeyFilePath": "{{applicationData}}/{{profile}}/secret.key",
+  "publicKeyFilePath": "{{applicationData}}/{{profile}}/public.key",
+  "privateKeyFilePath": "{{applicationData}}/{{profile}}/private.key",
+  "httpClientHostnameVerificationDisabled": true,
+  "httpClientBasicAuthenticationRetryLimit": 0,
+  "virtualThreadExecutorService": {
+    "availablePlatformThreadCount": 16,
+    "maximumPlatformThreadPoolSize": 192,
+    "minimumUnblockedPlatformThreadCount": 4
+  },
+  "httpServer": {
+    "host": "127.0.0.1",
+    "port": 9090,
+    "contextPath": "",
+    "documentBaseDirectoryPath": "",
+    "pingPath": "/api/v1.0/ping",
+    "requestHandlerBasePath": "/",
+    "webSocketRequestHandlerBasePath": "/websocket",
+    "webSocketMaximumConcurrentMessageSends": 0
+  },
+  "apiClientAuthenticationService": {
+    "apiKeyVersion": "1.0",
+    "whitelistedApiClientInformationMap": {
+      "system": {
+        "id": 1,
+        "systemUser": true,
+        "version": "1.0",
+        "firstName": "System",
+        "lastName": null,
+        "username": "system",
+        "password": "8@#NcdOoxS#+ZWziXGuR0ToVVqqEM6WYDT5bVcKzrx8PjhZhnH4TE6ZcHB8kbRymDTP7HjC9zxcURxDokfNL4w_v",
+        "hashedPassword": "_-3t4Xm__PFi7laHn4aoZtVvbTgm0pTphjc-2gpbaJO9qi9V1DN5iqTJxgj9VGbrw2jEcNCMMNVVvKnRWA6L5g",
+        "apiKey": "6j41PXjay37lyRbrOVmsmhG7C1BCOJEqrf4BTCntHXMpW6rI-VsumwIxKFHssS9o3hjr2O8YOaBopx7GGNRl5Q",
+        "tokenExpirationInMilliseconds": null
+      },
+      "visena": {
+        "id": 2,
+        "systemUser": false,
+        "version": "1.0",
+        "firstName": "Visena",
+        "lastName": null,
+        "username": "visena",
+        "password": "myvisena@2025",
+        "hashedPassword": "-Ug6r-6oIsaVS07RqFXoRjbWsESU0HvDVqnWVVxrrevKP2tIKcLQmG3uNUqOG5JzXZpbL7rsnGhoWlouto6FIw",
+        "apiKey": "ULlMfOM4owW2-9LkmdhxtU77GoCDXfk-BnlTPV6XdkGAFffSdvUHIkLq_58Eyk0bHul3XfXqr3xMYO0NieBD_Q",
+        "tokenExpirationInMilliseconds": null
+      }
+    }
+  },
+  "userAuthenticationService": {
+    "tokenExpirationInMilliseconds": null
+  },
+  "kafkaClient": {
+    "servers": "localhost:9092",
+    "pollTimeoutInMilliseconds": 1000,
+    "threadSleepTimeoutInMilliseconds": 1000,
+    "maximumConcurrentTaskLimit": 8192,
+    "maximumPollRecords": 50,
+    "maximumPollIntervalInMilliseconds": 5000,
+    "maximumBufferedRecords": 65536,
+    "maximumProducerRecordBatchSize": 8192
+  }
+}

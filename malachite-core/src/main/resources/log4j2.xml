@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console">
+            <!-- skips console logging if console logging is disabled -->
+            <ThreadContextMapFilter onMatch="DENY" onMismatch="NEUTRAL">
+                <KeyValuePair key="consoleLoggingDisabled" value="true" />
+            </ThreadContextMapFilter>
+            <PatternLayout pattern="[%d{dd-MMM-yyyy hh:mm:ss:SSS a}] [%level] [%logger{36}] [%t] %msg%n" />
+        </Console>
+        <RollingRandomAccessFile name="commonRollingFile" append="true" immediateFlush="true"
+                     fileName="${sys:log4j.saveDirectory}/application.log"
+                     filePattern="${sys:log4j.saveDirectory}/$${date:MMM-yyyy}/application-%d{dd-MMM-yyyy}-%i.log.gz">
+            <!-- skips file logging if file logging is disabled -->
+            <ThreadContextMapFilter onMatch="DENY" onMismatch="NEUTRAL">
+                <KeyValuePair key="fileLoggingDisabled" value="true" />
+            </ThreadContextMapFilter>
+            <PatternLayout pattern="[%d{dd-MMM-yyyy hh:mm:ss:SSS a}] [%level] [%logger{36}] [%t] %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="256 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="errorRollingFile" append="true" immediateFlush="true"
+                                 fileName="${sys:log4j.saveDirectory}/application.error.log"
+                                 filePattern="${sys:log4j.saveDirectory}/$${date:MMM-yyyy}/application-%d{dd-MMM-yyyy}-%i.error.log.gz">
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{dd-MMM-yyyy hh:mm:ss:SSS a}] [%level] [%logger{36}] [%t] %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="256 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.apache" level="info" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="commonRollingFile" />
+            <AppenderRef ref="errorRollingFile" />
+        </Logger>
+
+        <Root level="debug">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="commonRollingFile" />
+            <AppenderRef ref="errorRollingFile" />
+        </Root>
+    </Loggers>
+</Configuration>

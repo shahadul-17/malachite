@@ -1,0 +1,12 @@
+{
+  "version": 1.0,
+  "profile": "production",
+  "host": "127.0.0.1",
+  "port": 41193,
+  "includeStackTrace": true,
+  "virtualThreadScheduler": {
+    "availablePlatformThreadCount": 16,
+    "maximumPlatformThreadPoolSize": 192,
+    "minimumUnblockedPlatformThreadCount": 4
+  }
+}

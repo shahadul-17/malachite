@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/malachite-benchmark/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/malachite-benchmark/src/main/scala" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/malachite-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/malachite-core/src/main/scala" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/malachite-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/malachite-server/src/main/scala" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/malachite-test/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/malachite-test/src/main/scala" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/scala" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>malachite</name>
+    <groupId>com.malachite</groupId>
+    <artifactId>malachite-parent</artifactId>
+    <description>A simple, scalable, memory-efficient WebSocket server with zero overhead.</description>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <scala.version>3.8.0-RC6</scala.version>
+        <java.version>25</java.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <main.class />      <!-- this property must be defined in child modules that have maven-assembly-plugin enabled -->
+
+        <!-- dependency versions start -->
+        <version.scala3-library_3>${scala.version}</version.scala3-library_3>
+        <version.jakartaee>11.0.0</version.jakartaee>
+        <version.tomcat-embed>11.0.15</version.tomcat-embed>
+        <version.kafka-clients>4.1.1</version.kafka-clients>
+        <version.jackson>3.0.3</version.jackson>
+        <version.slf4j>2.0.17</version.slf4j>
+        <version.log4j>2.25.3</version.log4j>
+        <version.scalatest_3>3.2.19</version.scalatest_3>
+        <version.jmh>1.37</version.jmh>
+        <!-- dependency versions end -->
+
+        <!-- plugin versions start -->
+        <version.scala-maven-plugin>4.9.8</version.scala-maven-plugin>
+        <version.maven-compiler-plugin>3.14.1</version.maven-compiler-plugin>
+        <version.maven-assembly-plugin>3.8.0</version.maven-assembly-plugin>
+        <version.maven-clean-plugin>3.5.0</version.maven-clean-plugin>
+        <version.maven-resources-plugin>3.4.0</version.maven-resources-plugin>
+        <!-- plugin versions end -->
+    </properties>
+
+    <modules>
+        <module>malachite-core</module>
+        <module>malachite-server</module>
+        <module>malachite-benchmark</module>
+        <module>malachite-test</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library -->
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala3-library_3</artifactId>
+                <version>${version.scala3-library_3}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-api -->
+            <dependency>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-api</artifactId>
+                <version>${version.jakartaee}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${version.tomcat-embed}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-websocket -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${version.tomcat-embed}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${version.kafka-clients}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/tools.jackson.dataformat/jackson-dataformat-xml -->
+            <dependency>
+                <groupId>tools.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/tools.jackson.module/jackson-module-scala -->
+            <dependency>
+                <groupId>tools.jackson.module</groupId>
+                <artifactId>jackson-module-scala_3</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${version.log4j}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${version.log4j}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j2-impl</artifactId>
+                <version>${version.log4j}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
+            <dependency>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest_3</artifactId>
+                <version>${version.scalatest_3}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-core</artifactId>
+                <version>${version.jmh}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-generator-annprocess</artifactId>
+                <version>${version.jmh}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <outputDirectory>target/classes</outputDirectory>
+
+        <pluginManagement>
+            <plugins>
+                <!-- https://mvnrepository.com/artifact/net.alchim31.maven/scala-maven-plugin -->
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>scala-maven-plugin</artifactId>
+                    <version>${version.scala-maven-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>scala-compile</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>add-source</goal>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>scala-test-compile</id>
+                            <phase>test-compile</phase>
+                            <goals>
+                                <goal>testCompile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.maven-compiler-plugin}</version>
+                    <configuration>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.openjdk.jmh</groupId>
+                                <artifactId>jmh-generator-annprocess</artifactId>
+                                <version>${version.jmh}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>java-compile-for-jmh</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${version.maven-assembly-plugin}</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>${main.class}</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${version.maven-resources-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>copy-resources</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.parent.basedir}/build</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${project.basedir}/target</directory>
+                                        <includes>
+                                            <include>*-jar-with-dependencies.jar</include>
+                                        </includes>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${version.maven-clean-plugin}</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>${project.basedir}/build</directory>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <inherited>true</inherited>
+            </plugin>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <inherited>false</inherited>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
