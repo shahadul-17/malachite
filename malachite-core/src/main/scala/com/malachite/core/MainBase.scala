@@ -3,7 +3,7 @@ package com.malachite.core
 import com.malachite.core.common.ArgumentsParser
 import com.malachite.core.configurations.ConfigurationProvider
 import com.malachite.core.threading.{BackgroundTaskExecutor, VirtualThreadExecutorService}
-import com.malachite.core.utilities.{CloseableUtilities, FileSystemUtilities, ReflectionUtilities}
+import com.malachite.core.utilities.{FileSystemUtilities, ReflectionUtilities, SystemUtilities}
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.slf4j.bridge.SLF4JBridgeHandler
@@ -39,6 +39,8 @@ trait MainBase {
     }
 
     def run[Type <: Application](arguments: Array[String], applicationClass: Class[Type]): Unit = {
+        // checks if the application is currently running in DEBUG mode...
+        SystemUtilities.checkDebugModeEnabled
         // populates the arguments...
         ArgumentsParser.populateArguments(arguments)
 

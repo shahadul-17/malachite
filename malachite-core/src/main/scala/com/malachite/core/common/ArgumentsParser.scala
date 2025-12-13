@@ -2,6 +2,7 @@ package com.malachite.core.common
 
 object ArgumentsParser {
 
+	private var _rawArguments: Array[String] = Array.empty
 	private var argumentsMap: Map[String, String] = Map.empty
 
 	private val ARGUMENT_NAME_PREFIX = "--"
@@ -11,6 +12,7 @@ object ArgumentsParser {
 	def populateArguments(arguments: Array[String]): Unit = {
 		if (!INITIALIZED.compareAndSet(false, true)) { return }
 
+		_rawArguments = arguments
 		argumentsMap =
 			arguments
 				.sliding(2, 2) // take pairs of (name, value)
@@ -22,6 +24,8 @@ object ArgumentsParser {
 	}
 
 	lazy val profile: String = getArgument("profile", DEFAULT_PROFILE).toLowerCase
+
+	def rawArguments: Array[String] = _rawArguments
 
 	def getArgument(argumentName: String, defaultValue: String = ""): String =
 		argumentsMap
