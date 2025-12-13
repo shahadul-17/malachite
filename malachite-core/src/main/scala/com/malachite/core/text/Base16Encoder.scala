@@ -1,7 +1,5 @@
 package com.malachite.core.text
 
-import java.nio.charset.StandardCharsets
-
 /**
  * A utility object for hexadecimal (Base16) encoding and decoding operations.
  */
@@ -36,7 +34,7 @@ object Base16Encoder {
 		val bytesAsHexadecimalSymbols = new Array[Char](bytes.length * 2)
 
 		// Convert each byte to two hexadecimal characters
-		for i <- 0 until bytes.length do
+		for i <- bytes.indices do
 			val j = i * 2
 			val byteValue = bytes(i)
 

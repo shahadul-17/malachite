@@ -38,7 +38,7 @@ trait WebSocketMessage extends BasicWebSocketMessage {
 
 object WebSocketMessage {
 
-	private val COUNTER = new java.util.concurrent.atomic.AtomicLong(0)
+	private val COUNTER = new java.util.concurrent.atomic.AtomicLong(1L)
 
 	def apply(nodeId: String,
 			  owner: String,
