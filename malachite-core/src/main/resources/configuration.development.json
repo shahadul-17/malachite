@@ -63,12 +63,23 @@
   },
   "kafkaClient": {
     "servers": "localhost:9092",
-    "pollTimeoutInMilliseconds": 1000,
+    "connectionTimeoutInMilliseconds": 15000,
+    "pollTimeoutInMilliseconds": 250,
     "threadSleepTimeoutInMilliseconds": 1000,
     "maximumConcurrentTaskLimit": 8192,
     "maximumPollRecords": 50,
     "maximumPollIntervalInMilliseconds": 5000,
     "maximumBufferedRecords": 65536,
-    "maximumProducerRecordBatchSize": 8192
+    "maximumProducerRecordBatchSize": 8192,
+    "enableAutoCommit": false,
+    "autoOffsetReset": "earliest",
+    "retryCount": 5,
+    "retryBackoffInMilliseconds": 500,
+    "sessionTimeoutInMilliseconds": 15000,
+    "heartbeatIntervalInMilliseconds": 5000,
+    "enableIdempotence": true,
+    "acknowledgments": "all",
+    "lingerInMilliseconds": 5,
+    "bufferMemoryInBytes": 67108864
   }
 }

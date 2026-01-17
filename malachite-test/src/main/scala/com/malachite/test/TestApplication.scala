@@ -29,17 +29,16 @@ class TestApplication private extends Application {
 
     override def execute(): Unit = {
         val configuration = ConfigurationProvider.getConfiguration.kafkaClient
-        val kafkaClient = KafkaClient(configuration)
+        val kafkaClient = Environment.kafkaClient
         kafkaClient.subscribe(MyEventListener())
-        kafkaClient.connect
 
-        kafkaClient.publish(KafkaRecord("my-topic", "Hello", "World"))
-        kafkaClient.publish(KafkaRecord("my-topic", "Hello 2", "World 2"))
-        kafkaClient.publish(KafkaRecord("my-topic", "Hello 4", "World 4"))
-        kafkaClient.publish(KafkaRecord("my-topic", "Hello 5", "World 5"))
-        kafkaClient.publish(KafkaRecord("my-topic", "Hello 6", "World 6"))
+        kafkaClient.publish(KafkaRecord("my-topic", "World"))
+        kafkaClient.publish(KafkaRecord("my-topic", "World 2"))
+        kafkaClient.publish(KafkaRecord("my-topic", "World 4"))
+        kafkaClient.publish(KafkaRecord("my-topic", "World 5"))
+        kafkaClient.publish(KafkaRecord("my-topic", "World 6"))
 
-        kafkaClient.await()
+        ThreadUtilities.trySleep(60_000)
 
         // kafkaClient.close()
 

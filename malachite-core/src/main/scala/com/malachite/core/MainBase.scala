@@ -2,6 +2,7 @@ package com.malachite.core
 
 import com.malachite.core.common.ArgumentsParser
 import com.malachite.core.configurations.ConfigurationProvider
+import com.malachite.core.kafka.KafkaClient
 import com.malachite.core.threading.{BackgroundTaskExecutor, VirtualThreadExecutorService}
 import com.malachite.core.utilities.{FileSystemUtilities, ReflectionUtilities, SystemUtilities}
 import org.apache.logging.log4j.Level
@@ -90,6 +91,7 @@ trait MainBase {
         var applicationOpt: Option[Application] = None
         var executorServiceOpt: Option[VirtualThreadExecutorService] = None
         var backgroundTaskExecutorOpt: Option[BackgroundTaskExecutor] = None
+        var kafkaClientOpt: Option[KafkaClient] = None
 
         try {
             // loads profile-specific configuration from resource (JSON file)...
@@ -108,6 +110,15 @@ trait MainBase {
             // and assigning it to the environment...
             Environment.setBackgroundTaskExecutor(backgroundTaskExecutor)
 
+            // instantiating a new Kafka client...
+            val kafkaClient = KafkaClient(configuration.kafkaClient)
+            // connecting to the Kafka server...
+            kafkaClient.connect
+            // assigning the Kafka client to the kafkaClientOpt...
+            kafkaClientOpt = Some(kafkaClient)
+            // also assigning the Kafka client to the environment...
+            Environment.setKafkaClient(kafkaClient)
+
             // instantiating the application...
             val application = ReflectionUtilities.createInstance(applicationClass)
             // assigning the application to the applicationOpt...
@@ -124,6 +135,8 @@ trait MainBase {
         } finally {
             // stopping the background task executor and waiting for it to finish...
             backgroundTaskExecutorOpt.foreach(_.close())
+            // stopping the Kafka client and waiting for it to finish...
+            kafkaClientOpt.foreach(_.close())
             // releasing all the resources associated with the application...
             applicationOpt.foreach(_.dispose())
 

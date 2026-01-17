@@ -4,6 +4,7 @@ import com.malachite.core.configurations.ConfigurationProvider
 import com.malachite.core.extensions.ByteArrayExtensions.*
 import com.malachite.core.extensions.StringExtensions.*
 import com.malachite.core.extensions.AtomicReferenceExtensions.*
+import com.malachite.core.kafka.KafkaClient
 import com.malachite.core.security.authentication.abstractions.Credentials
 import com.malachite.core.security.cryptography.HybridEncryptionProvider
 import com.malachite.core.text.{Encoding, JsonSerializer}
@@ -27,6 +28,7 @@ object Environment {
 	private var _privateKey: Array[Byte] = uninitialized
 	private var _executorService: ExecutorService = uninitialized
 	private var _backgroundTaskExecutor: BackgroundTaskExecutor = uninitialized
+	private var _kafkaClient: KafkaClient = uninitialized
 
 	def profile: String = ConfigurationProvider.getConfiguration.profile
 
@@ -150,11 +152,18 @@ object Environment {
 	def backgroundTaskExecutor: BackgroundTaskExecutor = Option(_backgroundTaskExecutor)
 		.getOrElse(throw new IllegalStateException("Background task executor isn't initialized."))
 
+	def kafkaClient: KafkaClient = Option(_kafkaClient)
+		.getOrElse(throw new IllegalStateException("Kafka client isn't initialized."))
+
 	private[core] def setExecutorService(executorService: ExecutorService): Unit = {
 		Environment._executorService = executorService
 	}
 
 	private[core] def setBackgroundTaskExecutor(backgroundTaskExecutor: BackgroundTaskExecutor): Unit = {
 		Environment._backgroundTaskExecutor = backgroundTaskExecutor
+	}
+
+	private[core] def setKafkaClient(kafkaClient: KafkaClient): Unit = {
+		Environment._kafkaClient = kafkaClient
 	}
 }
