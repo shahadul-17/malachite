@@ -139,14 +139,6 @@
                 </exclusions>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-            <dependency>
-                <groupId>org.scalatest</groupId>
-                <artifactId>scalatest_3</artifactId>
-                <version>${version.scalatest_3}</version>
-                <scope>test</scope>
-            </dependency>
-
             <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
             <dependency>
                 <groupId>org.openjdk.jmh</groupId>
